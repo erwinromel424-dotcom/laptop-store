@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Momo+Trust+Display&family=Rubik+Vinyl&display=swap");
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans:
+        "Josefin Sans", "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-inter: "Inter";
+    --font-bebas: "Bebas Neue";
+    --font-anton: "Anton";
+    --font-rubik-vinyl: "Rubik Vinyl";
+
+    --color-brand-50: #f8fafc;
+    --color-brand-500: #64748b;
+    --color-brand-900: #0f172a;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--color-brand-900);
+        border-radius: 10px;
+    }
+
+    ::selection {
+        background-color: var(--color-brand-500);
+        color: white;
+    }
+}
