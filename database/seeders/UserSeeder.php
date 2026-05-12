@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     {
         // 1. Akun Admin
         User::create([
-            'name' => 'Nino Adityo Nugroho',
+            'name' => 'Erwin Rommel',
             'email' => 'admin@laptopstore.com',
             'email_verified_at' => now(),
             'phone' => '081234567890',
@@ -25,8 +25,8 @@ class UserSeeder extends Seeder
 
         // 2. Akun Customer 1
         $customer1 = User::create([
-            'name' => 'Jihan',
-            'email' => 'jihan@gmail.com',
+            'name' => 'Asep Sukma',
+            'email' => 'asep@gmail.com',
             'email_verified_at' => now(),
             'phone' => '081987654321',
             'password' => Hash::make('password123'),
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
 
         Address::create([
             'user_id' => $customer1->id,
-            'recipient_name' => 'Jihan',
+            'recipient_name' => 'Asep Sukma',
             'phone_number' => '081987654321',
             'full_address' => 'Jl. Perjuangan No. 1, Kesambi',
             'city' => 'Kota Cirebon',
@@ -46,8 +46,8 @@ class UserSeeder extends Seeder
 
         // 3. Akun Customer 2
         $customer2 = User::create([
-            'name' => 'Ferdy',
-            'email' => 'ferdy@gmail.com',
+            'name' => 'Budi Santoso',
+            'email' => 'budi@gmail.com',
             'email_verified_at' => now(),
             'phone' => '085612341234',
             'password' => Hash::make('password123'),
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
 
         Address::create([
             'user_id' => $customer2->id,
-            'recipient_name' => 'Ferdy',
+            'recipient_name' => 'Budi Santoso',
             'phone_number' => '085612341234',
             'full_address' => 'Jl. Cipto Mangunkusumo',
             'city' => 'Kota Cirebon',
