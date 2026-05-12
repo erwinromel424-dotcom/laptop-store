@@ -16,7 +16,7 @@ class TransactionSeeder extends Seeder
     public function run(): void
     {
         // Ambil data yang sudah dibuat dari seeder sebelumnya
-        $customer = User::where('email', 'jihan@gmail.com')->first();
+        $customer = User::where('email', 'asep@gmail.com')->first();
         $product = Product::where('sku', 'LNV-IPS3-002')->first();
 
         // --- Skenario 1: Keranjang Belanja Aktif ---
