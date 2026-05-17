@@ -1,16 +1,45 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Front\CartController;
+use App\Http\Controllers\Front\CheckoutController;
+use App\Http\Controllers\Front\CustomerOrderController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+
+// Halaman Katalog & Detail Produk (Publik)
+Route::get('/katalog', [FrontController::class, 'catalog'])->name('catalog');
+Route::get('/katalog/{product:slug}', [FrontController::class, 'show'])->name('product.show');
+
+// Customer dashboard (Authenticated users)
+Route::middleware(['auth'])->group(function () {
+
+    // Keranjang Belanja
+    Route::get('/keranjang', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/keranjang/add', [CartController::class, 'store'])->name('cart.store');
+    Route::put('/keranjang/update/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/keranjang/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+    // Checkout Transaksi
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+
+    // Halaman Sukses
+    Route::get('/checkout/success/{order_number}', [CheckoutController::class, 'success'])->name('checkout.success');
+
+    Route::get('/pesanan', [CustomerOrderController::class, 'index'])->name('customer.orders');
+    Route::get('/pesanan/{order_number}', [CustomerOrderController::class, 'show'])->name('customer.orders.show');
+});
 
 // Admin routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -31,6 +60,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Manajemen Alamat
+    Route::post('/address', [AddressController::class, 'store'])->name('address.store');
+    Route::put('/address/{id}', [AddressController::class, 'update'])->name('address.update');
+    Route::put('/address/{id}/primary', [AddressController::class, 'setPrimary'])->name('address.setPrimary');
+    Route::delete('/address/{id}', [AddressController::class, 'destroy'])->name('address.destroy');
 });
 
 require __DIR__ . '/auth.php';

@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
 
         $defaultDashboard = match ($user->role) {
             'admin',  => route('admin.dashboard'),
-            'customer'  => route('customer.home'),
+            'customer'  => route('welcome'),
             default => abort(403),
         };
         return redirect()->intended($defaultDashboard);
