@@ -42,4 +42,15 @@ class Order extends Model
     {
         return $this->hasOne(Payment::class);
     }
+
+    public function canBeCancelled()
+    {
+        // Hanya bisa cancel jika status masih 'pending'
+        if ($this->status !== 'pending') {
+            return false;
+        }
+
+        // Cek apakah sudah lewat 10 menit dari waktu pesan
+        return $this->created_at->diffInMinutes(now()) <= 10;
+    }
 }

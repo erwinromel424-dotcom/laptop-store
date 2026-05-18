@@ -21,6 +21,14 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/katalog', [FrontController::class, 'catalog'])->name('catalog');
 Route::get('/katalog/{product:slug}', [FrontController::class, 'show'])->name('product.show');
 
+Route::get('/tentang-kami', function () {
+    return view('about');
+});
+
+Route::get('/kontak', function () {
+    return view('contact');
+})->name('contact');
+
 // Customer dashboard (Authenticated users)
 Route::middleware(['auth'])->group(function () {
 
@@ -36,9 +44,12 @@ Route::middleware(['auth'])->group(function () {
 
     // Halaman Sukses
     Route::get('/checkout/success/{order_number}', [CheckoutController::class, 'success'])->name('checkout.success');
+    // Route khusus untuk handle upload bukti pembayaran (POST)
+    Route::post('/checkout/upload-proof/{order_id}', [CheckoutController::class, 'uploadProof'])->name('checkout.uploadProof');
 
     Route::get('/pesanan', [CustomerOrderController::class, 'index'])->name('customer.orders');
     Route::get('/pesanan/{order_number}', [CustomerOrderController::class, 'show'])->name('customer.orders.show');
+    Route::post('/pesanan/{id}/cancel', [CheckoutController::class, 'cancelOrder'])->name('customer.orders.cancel');
 });
 
 // Admin routes

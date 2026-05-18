@@ -4,87 +4,185 @@
 
 @section('content')
     <!-- 1. HERO SECTION: Edge-to-Edge Cinematic Showcase -->
-    <div class="relative w-full h-screen bg-[#09090b] flex items-center justify-center overflow-hidden pt-20">
+    <div class="relative w-full min-h-screen bg-[#09090b] flex items-center justify-center overflow-hidden">
 
-        <!-- Efek Cahaya Artistik Skala Besar -->
-        <div
-            class="absolute top-1/4 left-0 w-[50vw] h-[50vw] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none transform -translate-x-1/2">
+        <!-- BACKGROUND IMAGE: Laptop Background dengan Opacity Rendah -->
+        <div class="absolute inset-0 z-0">
+            <!-- Ganti URL di bawah dengan foto laptop flagship (misal: MacBook, ROG, atau XPS) -->
+            <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?q=80&w=2032&auto=format&fit=crop"
+                class="w-full h-full object-cover opacity-[0.15] scale-105 transition-transform duration-[10s] animate-subtle-zoom"
+                alt="Flagship Laptop Background">
+
+            <!-- Overlay Linear: Memastikan teks terbaca & menyatu dengan warna brand -->
+            <div class="absolute inset-0 bg-linear-to-b from-[#09090b] via-[#09090b]/80 to-[#09090b]"></div>
+            <div class="absolute inset-0 bg-linear-to-r from-[#09090b] via-transparent to-[#09090b] opacity-60"></div>
         </div>
+
+        <!-- Efek Cahaya Artistik (Ditingkatkan) -->
+        <div class="absolute top-1/4 left-0 w-[60vw] h-[60vw] bg-blue-600/5 blur-[150px] rounded-full pointer-events-none transform -translate-x-1/2 animate-pulse"
+            style="animation-duration: 8s;"></div>
+        <div class="absolute bottom-0 right-0 w-[50vw] h-[50vw] bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none transform translate-x-1/3 translate-y-1/3 animate-pulse"
+            style="animation-duration: 12s;"></div>
+
+        <!-- Grain/Noise Texture -->
         <div
-            class="absolute bottom-0 right-0 w-[40vw] h-[40vw] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none transform translate-x-1/3 translate-y-1/3">
-        </div>
-        <div
-            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.03] mix-blend-overlay">
+            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-2 mix-blend-overlay pointer-events-none z-1">
         </div>
 
         <div class="relative z-10 w-full px-6 md:px-12 lg:px-24 flex flex-col items-center text-center">
 
+            <!-- Badge Flagship -->
             <div
-                class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl mb-10 shadow-[0_0_30px_rgba(255,255,255,0.05)]">
-                <span class="relative flex h-2.5 w-2.5">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+                class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/3 border border-white/10 backdrop-blur-2xl mb-12 shadow-2xl transition-transform hover:scale-105 duration-500 cursor-default">
+                <span class="relative flex h-2 w-2">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                 </span>
-                <span class="text-xs font-extrabold tracking-[0.2em] text-gray-300 uppercase">Koleksi Flagship 2026</span>
+                <span class="text-[10px] md:text-xs font-bold tracking-[0.3em] text-gray-300 uppercase italic">Next-Gen
+                    Computing</span>
             </div>
 
-            <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-extrabold text-white tracking-tighter leading-[0.9] mb-8">
-                Evolusi <br>
+            <!-- Heading -->
+            <h1 class="text-6xl md:text-8xl lg:text-[8rem] font-extrabold text-white tracking-tighter mb-10 leading-[0.9]">
+                <span class="inline-block opacity-0 animate-fade-in-up"
+                    style="animation-delay: 200ms; animation-fill-mode: forwards;">Evolusi</span><br>
                 <span
-                    class="text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-cyan-400 to-white drop-shadow-2xl">
+                    class="p-4 text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-cyan-300 to-indigo-400 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] inline-block opacity-0 animate-fade-in-up"
+                    style="animation-delay: 400ms; animation-fill-mode: forwards;">
                     Performa.
                 </span>
             </h1>
 
-            <p class="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto mb-14 font-light leading-relaxed">
-                Mendefinisikan ulang standar komputasi modern. Jelajahi jajaran mesin arsitektur mutakhir yang dirancang
-                presisi untuk para kreator, engineer, dan visioner sejati.
+            <!-- Subtext -->
+            <p class="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto mb-16 font-light leading-relaxed antialiased opacity-0 animate-fade-in-up"
+                style="animation-delay: 600ms; animation-fill-mode: forwards;">
+                Mendefinisikan ulang standar komputasi modern untuk para kreator, teknisi, dan visioner sejati. Temukan
+                perangkat yang melampaui batas hari ini.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-6 w-full sm:w-auto justify-center">
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto justify-center opacity-0 animate-fade-in-up"
+                style="animation-delay: 800ms; animation-fill-mode: forwards;">
                 <a href="{{ url('/katalog') }}"
-                    class="group relative inline-flex justify-center items-center px-12 py-5 text-base font-bold text-[#09090b] bg-white rounded-full overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]">
-                    <span
-                        class="absolute inset-0 w-full h-full bg-linear-to-r from-white via-gray-200 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                    class="group relative inline-flex justify-center items-center px-14 py-5 text-sm font-bold text-[#09090b] bg-white rounded-full overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_rgba(255,255,255,0.2)]">
                     <span class="relative flex items-center gap-2">
                         Eksplorasi Katalog
-                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                        <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                 d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
                     </span>
                 </a>
                 <a href="#kategori-unggulan"
-                    class="inline-flex justify-center items-center px-12 py-5 text-base font-bold text-white bg-transparent border border-white/20 rounded-full hover:bg-white/10 hover:border-white/40 transition-all duration-300">
+                    class="inline-flex justify-center items-center px-14 py-5 text-sm font-bold text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/30 backdrop-blur-sm transition-all duration-300">
                     Lihat Kategori
                 </a>
             </div>
         </div>
 
         <!-- Scroll Down Indicator -->
-        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-            <span class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Scroll</span>
-            <div class="w-px h-12 bg-linear-to-b from-gray-400 to-transparent"></div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+            <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-gray-600 animate-pulse">Explore</span>
+            <div class="w-px h-16 bg-linear-to-b from-blue-500/50 via-gray-800 to-transparent"></div>
         </div>
     </div>
+    <style>
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 1s ease-out;
+        }
+
+        @keyframes subtle-zoom {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        .animate-subtle-zoom {
+            animation: subtle-zoom 20s infinite alternate ease-in-out;
+        }
+    </style>
 
     <!-- 2. BRAND MARQUEE: Social Proof & Trust Signals -->
-    <div class="w-full bg-[#050505] border-y border-white/5 py-8 overflow-hidden flex items-center">
+    <div class="relative w-full bg-[#050505] border-y border-white/5 py-10 overflow-hidden flex items-center group">
+        <!-- Overlay Gradasi Halus di Pinggir (Kiri & Kanan) -->
         <div
-            class="w-full flex space-x-16 md:space-x-32 animate-[marquee_30s_linear_infinite] whitespace-nowrap opacity-40 px-8">
-            <!-- Modern Typography Brands as Placeholders -->
-            <span class="text-2xl md:text-3xl font-extrabold tracking-tighter text-white">REPUBLIC OF GAMERS</span>
-            <span class="text-2xl md:text-3xl font-extrabold tracking-tighter text-white">APPLE SILICON</span>
-            <span class="text-2xl md:text-3xl font-extrabold tracking-tighter text-white">ALIENWARE</span>
-            <span class="text-2xl md:text-3xl font-extrabold tracking-tighter text-white">THINKPAD PRO</span>
-            <span class="text-2xl md:text-3xl font-extrabold tracking-tighter text-white">RAZER BLADE</span>
-            <!-- Duplicate for infinite loop illusion -->
-            <span class="text-2xl md:text-3xl font-extrabold tracking-tighter text-white">REPUBLIC OF GAMERS</span>
-            <span class="text-2xl md:text-3xl font-extrabold tracking-tighter text-white">APPLE SILICON</span>
-            <span class="text-2xl md:text-3xl font-extrabold tracking-tighter text-white">ALIENWARE</span>
+            class="absolute inset-y-0 left-0 w-24 md:w-48 bg-linear-to-r from-[#050505] to-transparent z-10 pointer-events-none">
+        </div>
+        <div
+            class="absolute inset-y-0 right-0 w-24 md:w-48 bg-linear-to-l from-[#050505] to-transparent z-10 pointer-events-none">
+        </div>
+
+        <!-- Container Marquee -->
+        <div class="flex w-fit animate-marquee whitespace-nowrap px-8 gap-16 md:gap-32 items-center">
+            <!-- Group 1 -->
+            <div
+                class="flex items-center gap-16 md:gap-32 opacity-40 group-hover:opacity-100 transition-opacity duration-700">
+                <span class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">Republic of
+                    Gamers</span>
+                <span
+                    class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">MacBook</span>
+                <span class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">Advan</span>
+                <span
+                    class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">ThinkPad</span>
+                <span class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">Acer
+                    Precision</span>
+            </div>
+
+            <!-- Group 2 (Duplikasi untuk loop tanpa putus) -->
+            <div
+                class="flex items-center gap-16 md:gap-32 opacity-40 group-hover:opacity-100 transition-opacity duration-700">
+                <span class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">Republic of
+                    Gamers</span>
+                <span
+                    class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">MacBook</span>
+                <span class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">Advan</span>
+                <span
+                    class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">ThinkPad</span>
+                <span class="text-2xl md:text-4xl font-extrabold tracking-tighter text-white uppercase italic">Acer
+                    Precision</span>
+            </div>
         </div>
     </div>
+    <style>
+        @keyframes marqueeCustom {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marqueeCustom 30s linear infinite;
+        }
+
+        /* Opsional: Berhenti saat di-hover agar user bisa membaca */
+        .group:hover .animate-marquee {
+            animation-play-state: paused;
+        }
+    </style>
 
     <!-- 3. CATEGORY SHOWCASE (Bento Grid Full Width) -->
     <div id="kategori-unggulan" class="w-full bg-[#09090b] py-32 relative">
@@ -98,34 +196,35 @@
             </div>
 
             <!-- Bento Grid Layout Kategori -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-[300px] md:auto-rows-[400px]">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-[350px] md:auto-rows-[450px]">
 
-                <!-- Bento Kiri: Gaming (Lebar 2 Kolom di LG) -->
+                <!-- Bento Kiri: Gaming -->
                 <a href="{{ url('/katalog?kategori=laptop-gaming') }}"
-                    class="group lg:col-span-2 relative bg-linear-to-br from-[#121214] to-[#050505] border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col justify-end p-10 hover:border-blue-500/50 transition-all duration-700">
-                    <div class="absolute inset-0 bg-blue-600/5 group-hover:bg-blue-600/20 transition-colors duration-700">
-                    </div>
-                    <!-- Aksesori Visual Background -->
-                    <div
-                        class="absolute -right-20 -top-20 w-96 h-96 bg-blue-500/20 blur-[80px] rounded-full group-hover:scale-150 transition-transform duration-1000">
-                    </div>
+                    class="group lg:col-span-2 relative bg-[#121214] border border-white/10 rounded-[3rem] overflow-hidden flex flex-col justify-end p-10 hover:border-blue-500/50 transition-all duration-700">
+
+                    <!-- Image Background -->
+                    <img src="https://images.unsplash.com/photo-1603481588273-2f908a9a7a1b?q=80&w=2070&auto=format&fit=crop"
+                        class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-110 group-hover:opacity-50 transition-all duration-1000"
+                        alt="Gaming Setup">
+
+                    <div class="absolute inset-0 bg-linear-to-t from-[#050505] via-[#050505]/40 to-transparent"></div>
 
                     <div class="relative z-10 w-full flex justify-between items-end">
                         <div>
                             <div
-                                class="w-12 h-12 bg-black/50 backdrop-blur-md rounded-xl border border-white/10 flex items-center justify-center mb-6">
+                                class="w-12 h-12 bg-blue-600/20 backdrop-blur-md rounded-xl border border-white/10 flex items-center justify-center mb-6">
                                 <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                         d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5">
                                     </path>
                                 </svg>
                             </div>
-                            <h3 class="text-3xl md:text-5xl font-extrabold text-white mb-3">Esports & Gaming</h3>
-                            <p class="text-gray-400 text-lg max-w-md">Dominasi arena dengan frame rate maksimal dan sistem
-                                pendingin mutakhir.</p>
+                            <h3 class="text-3xl md:text-5xl font-extrabold text-white mb-3 tracking-tighter">Esports &
+                                Gaming</h3>
+                            <p class="text-gray-400 text-lg max-w-md">Dominasi arena dengan frame rate maksimal.</p>
                         </div>
                         <div
-                            class="hidden md:flex w-14 h-14 rounded-full bg-white text-black items-center justify-center group-hover:-rotate-45 transition-transform duration-500">
+                            class="hidden md:flex w-14 h-14 rounded-full bg-white text-black items-center justify-center group-hover:-rotate-45 transition-transform duration-500 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -136,33 +235,43 @@
 
                 <!-- Bento Kanan Atas: Profesional -->
                 <a href="{{ url('/katalog?kategori=laptop-bisnis') }}"
-                    class="group relative bg-[#121214] border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col justify-end p-8 hover:border-purple-500/50 transition-all duration-700">
-                    <div
-                        class="absolute -left-10 -bottom-10 w-64 h-64 bg-purple-500/20 blur-[60px] rounded-full group-hover:scale-150 transition-transform duration-1000">
-                    </div>
+                    class="group relative bg-[#121214] border border-white/10 rounded-[3rem] overflow-hidden flex flex-col justify-end p-8 hover:border-purple-500/50 transition-all duration-700">
+
+                    <!-- Image Background -->
+                    <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop"
+                        class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-all duration-1000"
+                        alt="Professional Office">
+
+                    <div class="absolute inset-0 bg-linear-to-t from-[#050505] to-transparent"></div>
+
                     <div class="relative z-10 w-full">
                         <div
-                            class="w-10 h-10 bg-black/50 backdrop-blur-md rounded-lg border border-white/10 flex items-center justify-center mb-4">
+                            class="w-10 h-10 bg-purple-600/20 backdrop-blur-md rounded-lg border border-white/10 flex items-center justify-center mb-4">
                             <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                                 </path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Profesional & Bisnis</h3>
-                        <p class="text-gray-400 text-sm">Keamanan data tingkat tinggi dalam chassis teringan di dunia.</p>
+                        <h3 class="text-2xl font-bold text-white mb-2">Profesional</h3>
+                        <p class="text-gray-400 text-sm">Keamanan data tingkat tinggi dalam chassis teringan.</p>
                     </div>
                 </a>
 
                 <!-- Bento Bawah: Pelajar -->
                 <a href="{{ url('/katalog?kategori=laptop-pelajar') }}"
-                    class="group lg:col-span-3 relative bg-[#121214] border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row items-center md:items-end justify-between p-10 hover:border-cyan-500/50 transition-all duration-700">
-                    <div
-                        class="absolute inset-0 bg-linear-to-r from-cyan-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                    </div>
+                    class="group lg:col-span-3 relative bg-[#121214] border border-white/10 rounded-[3rem] overflow-hidden flex flex-col md:flex-row items-center md:items-end justify-between p-10 hover:border-cyan-500/50 transition-all duration-700">
+
+                    <!-- Image Background -->
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop"
+                        class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-20 group-hover:scale-105 transition-all duration-1000"
+                        alt="Student coding">
+
+                    <div class="absolute inset-0 bg-linear-to-r from-[#050505] via-[#050505]/80 to-transparent"></div>
+
                     <div class="relative z-10 w-full md:w-1/2 mb-6 md:mb-0">
                         <div
-                            class="w-12 h-12 bg-black/50 backdrop-blur-md rounded-xl border border-white/10 flex items-center justify-center mb-6">
+                            class="w-12 h-12 bg-cyan-600/20 backdrop-blur-md rounded-xl border border-white/10 flex items-center justify-center mb-6">
                             <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
@@ -170,11 +279,11 @@
                             </svg>
                         </div>
                         <h3 class="text-3xl md:text-4xl font-bold text-white mb-3">Pelajar & Kreatif</h3>
-                        <p class="text-gray-400 text-lg">Investasi cerdas untuk masa depan. Reliabilitas tinggi untuk tugas
-                            tanpa henti.</p>
+                        <p class="text-gray-400 text-lg">Investasi cerdas untuk masa depan dan reliabilitas tinggi.</p>
                     </div>
                     <div class="relative z-10 w-full md:w-auto flex justify-end">
-                        <span class="inline-flex items-center gap-2 text-cyan-400 font-bold group-hover:text-cyan-300">
+                        <span
+                            class="inline-flex items-center gap-2 text-cyan-400 font-bold group-hover:text-cyan-300 px-6 py-3 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm transition-all">
                             Eksplorasi Kelas Ini
                             <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
@@ -190,18 +299,35 @@
     </div>
 
     <!-- 4. FEATURED PRODUCTS EDGE-TO-EDGE -->
-    <div class="w-full bg-[#09090b] py-20 border-t border-white/5 relative">
-        <div class="w-full px-6 md:px-12 lg:px-24">
+    <div class="w-full bg-[#09090b] py-32 border-t border-white/5 relative overflow-hidden">
+        <!-- Dekorasi Background (Subtle Glow) -->
+        <div class="absolute top-0 right-0 w-125 h-125 bg-blue-600/5 blur-[120px] rounded-full -mr-64 -mt-64">
+        </div>
 
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-                <div>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Karya <span
-                            class="text-gray-600">Unggulan.</span></h2>
-                    <p class="mt-4 text-gray-400 text-lg max-w-2xl">Dipilih secara ketat berdasarkan rasio performa dan
-                        ulasan tertinggi dari komunitas.</p>
+        <div class="w-full px-6 md:px-12 lg:px-24 relative z-10">
+
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                <div class="max-w-3xl">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                        </span>
+                        Koleksi Terbaru
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-extrabold text-white tracking-tighter leading-tight">
+                        Karya <span class="text-gray-500">Unggulan.</span>
+                    </h2>
+                    <p class="mt-6 text-gray-400 text-lg md:text-xl leading-relaxed">
+                        Dipilih secara ketat berdasarkan rasio performa dan ulasan tertinggi dari komunitas profesional.
+                    </p>
                 </div>
+
                 <a href="{{ url('/katalog') }}"
-                    class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all">
+                    class="group flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition-all duration-300 shadow-lg shadow-white/5">
                     Lihat Semua Koleksi
                     <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
@@ -212,66 +338,83 @@
             </div>
 
             <!-- Grid Highlight Laptop -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
                 @forelse ($products->take(4) as $product)
-                    <a href="{{ url('/produk/' . $product->slug) }}"
-                        class="group relative bg-[#121214] border border-white/5 rounded-4xl p-6 hover:border-white/20 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] flex flex-col h-full">
+                    <a href="{{ url('/katalog/' . $product->slug) }}"
+                        class="group relative bg-[#121214] border border-white/5 rounded-[2.5rem] p-7 hover:border-white/20 transition-all duration-500 hover:-translate-y-4 flex flex-col h-full shadow-2xl">
 
-                        <!-- Gambar Area -->
+                        <!-- Gambar Area dengan Glow Effect -->
                         <div
-                            class="w-full h-56 mb-8 flex items-center justify-center relative bg-[#09090b] rounded-2xl p-4 overflow-hidden border border-white/5">
-                            <!-- Overlay Linear untuk Kontras -->
-                            <div class="absolute inset-0 bg-linear-to-t from-[#09090b] to-transparent opacity-50 z-10">
+                            class="w-full h-64 mb-10 flex items-center justify-center relative bg-linear-to-b from-white/2 to-transparent rounded-3xl overflow-hidden p-6">
+
+                            <!-- Hover Glow Decor -->
+                            <div
+                                class="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/5 transition-colors duration-700">
                             </div>
 
                             @if ($product->images->isNotEmpty())
                                 <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
                                     alt="{{ $product->name }}"
-                                    class="w-full h-full object-contain relative z-20 group-hover:scale-110 transition-transform duration-700 drop-shadow-2xl">
+                                    class="w-full h-full object-contain relative z-20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-700 drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)]">
                             @else
-                                <span class="text-gray-700 font-mono text-sm relative z-20">NO IMAGE</span>
+                                <div class="text-gray-700 font-mono text-xs tracking-tighter opacity-50">IMAGE_NOT_FOUND
+                                </div>
                             @endif
 
-                            <div class="absolute top-3 left-3 z-30">
+                            <!-- Float Badge -->
+                            <div class="absolute top-4 left-4 z-30">
                                 <span
-                                    class="px-3 py-1 text-[10px] uppercase tracking-widest font-bold text-white bg-white/10 backdrop-blur-md rounded-full border border-white/10">
+                                    class="px-4 py-1.5 text-[10px] uppercase tracking-widest font-black text-white bg-black/40 backdrop-blur-xl border border-white/10 rounded-lg">
                                     {{ $product->category->name ?? 'Premium' }}
                                 </span>
                             </div>
                         </div>
 
                         <!-- Info Teks -->
-                        <div class="flex-1 flex flex-col justify-end text-left">
+                        <div class="flex-1 flex flex-col">
                             <h3
-                                class="text-xl font-bold text-white mb-2 line-clamp-2 leading-tight group-hover:text-blue-400 transition-colors">
-                                {{ $product->name }}</h3>
-                            <p class="text-sm text-gray-500 mb-6 line-clamp-2">{{ $product->description }}</p>
+                                class="text-xl font-bold text-white mb-3 line-clamp-1 group-hover:text-blue-400 transition-colors duration-300">
+                                {{ $product->name }}
+                            </h3>
+                            <p
+                                class="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-8 group-hover:text-gray-400 transition-colors">
+                                {{ $product->description }}
+                            </p>
 
-                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                                <p class="text-xl font-extrabold text-white">Rp
-                                    {{ number_format($product->price, 0, ',', '.') }}</p>
+                            <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                                <div>
+                                    <span
+                                        class="block text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-1">Mulai
+                                        Dari</span>
+                                    <p class="text-2xl font-black text-white tracking-tight">
+                                        <span
+                                            class="text-sm font-normal text-gray-400 mr-1">Rp</span>{{ number_format($product->price, 0, ',', '.') }}
+                                    </p>
+                                </div>
+
                                 <div
-                                    class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white group-hover:bg-blue-600 group-hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-500">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                            d="M12 4v16m8-8H4"></path>
                                     </svg>
                                 </div>
                             </div>
                         </div>
                     </a>
                 @empty
+                    <!-- State jika produk kosong tetap menggunakan gaya yang konsisten -->
                     <div
-                        class="col-span-full py-32 flex flex-col items-center justify-center border border-dashed border-white/10 rounded-[3rem]">
-                        <div class="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        class="col-span-full py-40 flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-[3rem] bg-white/1">
+                        <div class="w-24 h-24 rounded-full bg-white/5 flex items-center justify-center mb-8 animate-pulse">
+                            <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
                                     d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Katalog Kosong</h3>
-                        <p class="text-gray-400 font-medium tracking-wide">Belum ada perangkat yang ditambahkan ke sistem.
-                        </p>
+                        <h3 class="text-2xl font-bold text-white mb-2">Belum Ada Koleksi</h3>
+                        <p class="text-gray-500">Perangkat unggulan akan segera hadir untukmu.</p>
                     </div>
                 @endforelse
             </div>
@@ -279,73 +422,81 @@
     </div>
 
     <!-- 5. VALUE PROPOSITION (Trust Signals) -->
-    <div class="w-full bg-[#050505] py-24 border-t border-white/5">
-        <div class="w-full px-6 md:px-12 lg:px-24">
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 divide-y md:divide-y-0 md:divide-x divide-white/10 text-center lg:text-left">
+    <div class="w-full bg-[#050505] py-32 border-y border-white/5 relative overflow-hidden">
+        <!-- Ambient Background Light -->
+        <div
+            class="absolute -bottom-24 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-blue-500/5 blur-[120px] rounded-full">
+        </div>
 
-                <div class="flex flex-col lg:flex-row items-center lg:items-start gap-6 px-4">
+        <div class="w-full px-6 md:px-12 lg:px-24 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <!-- Item 1: Garansi -->
+                <div
+                    class="group p-8 rounded-4xl bg-transparent hover:bg-white/2 border border-transparent hover:border-white/5 transition-all duration-500">
                     <div
-                        class="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                        <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
                             </path>
                         </svg>
                     </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-white mb-2">Garansi Resmi</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed">Semua perangkat dilindungi oleh perlindungan
-                            pabrik langsung. 100% aman.</p>
-                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Garansi Resmi</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-400 transition-colors">
+                        Semua perangkat dilindungi oleh perlindungan pabrik langsung. <span
+                            class="text-blue-400/80 font-medium italic">100% Original.</span>
+                    </p>
                 </div>
 
-                <div class="flex flex-col lg:flex-row items-center lg:items-start gap-6 px-4 pt-12 md:pt-0">
+                <!-- Item 2: Pengiriman -->
+                <div
+                    class="group p-8 rounded-4xl bg-transparent hover:bg-white/2 border border-transparent hover:border-white/5 transition-all duration-500">
                     <div
-                        class="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
-                        <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                            </path>
+                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                         </svg>
                     </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-white mb-2">Pengiriman Ekstra Aman</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed">Dikemas presisi menggunakan bubble wrap ganda dan
-                            peti kayu untuk perjalanan jauh.</p>
-                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Extra Safe Shipping</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-400 transition-colors">
+                        Proteksi maksimal dengan bubble wrap ganda dan peti kayu untuk pengiriman jarak jauh.
+                    </p>
                 </div>
 
-                <div class="flex flex-col lg:flex-row items-center lg:items-start gap-6 px-4 pt-12 md:pt-0">
+                <!-- Item 3: Support -->
+                <div
+                    class="group p-8 rounded-4xl bg-transparent hover:bg-white/2 border border-transparent hover:border-white/5 transition-all duration-500">
                     <div
-                        class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                        <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                        <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z">
                             </path>
                         </svg>
                     </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-white mb-2">Dukungan Teknis</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed">Tim IT ahli kami siap membantu kendala sistem
-                            operasi atau perangkat keras.</p>
-                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Dukungan Teknis</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-400 transition-colors">
+                        Konsultasi gratis dengan tim IT ahli kami untuk kendala sistem maupun hardware.
+                    </p>
                 </div>
 
-                <div class="flex flex-col lg:flex-row items-center lg:items-start gap-6 px-4 pt-12 md:pt-0">
+                <!-- Item 4: Retur -->
+                <div
+                    class="group p-8 rounded-4xl bg-transparent hover:bg-white/2 border border-transparent hover:border-white/5 transition-all duration-500">
                     <div
-                        class="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center shrink-0">
-                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                        <svg class="w-7 h-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
                             </path>
                         </svg>
                     </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-white mb-2">Retur Mudah 7 Hari</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed">Pengembalian unit terjamin jika terbukti ada
-                            kerusakan atau cacat dari pabrikan.</p>
-                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">7-Day Easy Return</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-400 transition-colors">
+                        Jaminan retur unit jika ditemukan cacat pabrikan saat barang diterima.
+                    </p>
                 </div>
 
             </div>
@@ -353,49 +504,127 @@
     </div>
 
     <!-- 6. MASSIVE BOTTOM BANNER (Full-width immersive CTA) -->
-    <div class="w-full bg-[#09090b] py-24 relative overflow-hidden">
-        <div class="absolute inset-0 bg-blue-900/20 blur-[150px] pointer-events-none"></div>
+    <div class="w-full bg-[#09090b] py-32 relative overflow-hidden">
+        <!-- Ambient Lighting Layers -->
+        <div
+            class="absolute -top-24 -left-24 w-150 h-150 bg-blue-600/10 blur-[150px] rounded-full pointer-events-none">
+        </div>
+        <div
+            class="absolute -bottom-24 -right-24 w-150 h-150 bg-purple-600/10 blur-[150px] rounded-full pointer-events-none">
+        </div>
+
         <div class="w-full px-6 md:px-12 lg:px-24 relative z-10">
 
             <div
-                class="w-full rounded-[4rem] overflow-hidden bg-linear-to-tr from-[#050505] via-[#121214] to-[#050505] border border-white/10 p-16 md:p-32 flex flex-col md:flex-row items-center justify-between gap-16 group">
+                class="w-full rounded-[4rem] overflow-hidden bg-[#0c0c0e] border border-white/5 p-12 md:p-24 lg:p-32 flex flex-col lg:flex-row items-center justify-between gap-20 group relative">
 
+                <!-- Carbon Fiber Texture Overlay -->
                 <div
-                    class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.05] mix-blend-overlay">
+                    class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-3 mix-blend-overlay pointer-events-none">
                 </div>
 
-                <div class="relative z-10 max-w-3xl text-center md:text-left">
+                <!-- Animated Background Grid -->
+                <div
+                    class="absolute inset-0 bg-[linear-linear(to_right,#80808012_1px,transparent_1px),linear-linear(to_bottom,#80808012_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-linear(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]">
+                </div>
+
+                <div class="relative z-10 max-w-4xl text-center lg:text-left">
+                    <!-- Status Badge -->
                     <div
-                        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
-                        <span class="text-xs font-bold tracking-widest text-blue-400 uppercase">Akses Eksklusif</span>
+                        class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-10 transition-transform duration-500 group-hover:-translate-y-1">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                        </span>
+                        <span class="text-[10px] font-black tracking-[0.2em] text-blue-400 uppercase">Priority
+                            Membership</span>
                     </div>
-                    <h2 class="text-5xl md:text-7xl font-extrabold text-white mb-8 leading-[1.1] tracking-tight">Leveling
-                        up <br> <span class="text-gray-500">starts here.</span></h2>
-                    <p class="text-gray-400 text-xl md:text-2xl mb-12 font-light leading-relaxed">Bergabung dengan
-                        ekosistem kami untuk menerima rilis prioritas, diskon hardware khusus, dan pengiriman gratis.</p>
 
-                    @guest
-                        <a href="{{ route('register') }}"
-                            class="inline-flex justify-center items-center px-12 py-5 text-base font-bold text-[#09090b] bg-white rounded-full hover:bg-gray-200 transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                            Inisialisasi Akun
-                        </a>
-                    @else
-                        <a href="{{ url('/katalog') }}"
-                            class="inline-flex justify-center items-center px-12 py-5 text-base font-bold text-[#09090b] bg-white rounded-full hover:bg-gray-200 transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                            Buka Katalog Penuh
-                        </a>
-                    @endguest
+                    <h2 class="text-5xl md:text-8xl font-black text-white mb-10 leading-[0.9] tracking-tighter">
+                        Leveling up <br>
+                        <span
+                            class="bg-linear-to-r from-gray-400 via-gray-100 to-gray-500 bg-clip-text text-transparent">starts
+                            here.</span>
+                    </h2>
+
+                    <p class="text-gray-500 text-lg md:text-2xl mb-14 font-medium leading-relaxed max-w-2xl">
+                        Jadilah yang pertama merasakan performa generasi terbaru. Dapatkan akses ke rilis terbatas dan
+                        penawaran hardware khusus member.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center gap-6">
+                        @guest
+                            <a href="{{ route('register') }}"
+                                class="w-full sm:w-auto inline-flex justify-center items-center px-14 py-6 text-lg font-black text-black bg-white rounded-2xl hover:bg-blue-400 transition-all duration-500 hover:scale-105 shadow-[0_20px_40px_rgba(255,255,255,0.1)] group/btn">
+                                Inisialisasi Akun
+                                <svg class="ml-3 w-6 h-6 group-hover/btn:translate-x-2 transition-transform" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </a>
+                        @else
+                            <a href="{{ url('/katalog') }}"
+                                class="w-full sm:w-auto inline-flex justify-center items-center px-14 py-6 text-lg font-black text-black bg-white rounded-2xl hover:bg-blue-400 transition-all duration-500 hover:scale-105 shadow-[0_20px_40px_rgba(255,255,255,0.1)] group/btn">
+                                Buka Katalog Penuh
+                            </a>
+                        @endguest
+                    </div>
                 </div>
 
-                <!-- 3D/Abstract Glass Orb representation -->
-                <div
-                    class="relative z-10 w-64 h-64 md:w-96 md:h-96 rounded-full bg-linear-to-tr from-cyan-400 via-blue-600 to-purple-600 blur-sm opacity-70 mix-blend-screen group-hover:scale-110 group-hover:rotate-45 transition-all duration-2000 shadow-2xl flex items-center justify-center">
+                <!-- Visual Component: The "Tech Core" -->
+                <div class="relative z-10 w-full lg:w-1/3 aspect-square flex items-center justify-center">
+                    <!-- Rotating Ring Decor -->
+                    <div class="absolute inset-0 rounded-full border border-white/5 animate-[spin_20s_linear_infinite]">
+                    </div>
                     <div
-                        class="w-full h-full rounded-full bg-linear-to-bl from-white/20 to-transparent backdrop-blur-3xl border border-white/30">
+                        class="absolute inset-10 rounded-full border border-blue-500/20 animate-[spin_15s_linear_infinite_reverse]">
+                    </div>
+
+                    <!-- The Main Orb -->
+                    <div
+                        class="relative w-64 h-64 md:w-80 md:h-80 group-hover:scale-110 transition-transform duration-[2s]">
+                        <!-- Glow Layer -->
+                        <div class="absolute inset-0 bg-blue-600/30 blur-[60px] rounded-full animate-pulse"></div>
+
+                        <!-- Glass Structure -->
+                        <div
+                            class="w-full h-full rounded-[3rem] bg-linear-to-br from-white/10 to-white/2 backdrop-blur-3xl border border-white/20 shadow-2xl relative overflow-hidden flex items-center justify-center transform rotate-12 group-hover:rotate-0 transition-transform duration-[1.5s]">
+
+                            <!-- Simbol Abstract (Ganti dengan Logo kamu jika ada) -->
+                            <div class="relative">
+                                <svg class="w-32 h-32 text-white/80 group-hover:scale-125 transition-transform duration-1000"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                                <!-- Inner Glow -->
+                                <div
+                                    class="absolute inset-0 bg-blue-400/50 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity">
+                                </div>
+                            </div>
+
+                            <!-- Scanline Effect -->
+                            <div
+                                class="absolute inset-0 bg-linear-to-b from-transparent via-white/5 to-transparent h-1/2 w-full -translate-y-full group-hover:translate-y-[200%] transition-transform duration-[3s] ease-in-out">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Labels -->
+                    <div
+                        class="absolute top-10 right-0 bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-2xl hidden md:block animate-bounce [animation-duration:4s]">
+                        <p class="text-[10px] text-gray-500 uppercase font-black">Performance</p>
+                        <p class="text-white font-bold">100% Stable</p>
+                    </div>
+                    <div
+                        class="absolute bottom-10 left-0 bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-2xl hidden md:block animate-bounce [animation-duration:5s]">
+                        <p class="text-[10px] text-gray-500 uppercase font-black">Latency</p>
+                        <p class="text-white font-bold">0.02ms</p>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

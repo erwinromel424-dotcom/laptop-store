@@ -37,7 +37,7 @@ class AddressController extends Controller
         return back()->with('success', 'Alamat baru berhasil ditambahkan.');
     }
 
-    public function setPrimary(int $id)
+    public function setPrimary(string $id)
     {
         $user = Auth::user();
 
@@ -54,7 +54,7 @@ class AddressController extends Controller
         return back()->with('success', 'Alamat utama berhasil diubah.');
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'recipient_name' => 'required|string|max:255',
@@ -81,7 +81,7 @@ class AddressController extends Controller
         return back()->with('success', 'Data alamat berhasil diperbarui.');
     }
 
-    public function destroy(int $id)
+    public function destroy(string $id)
     {
         $user = Auth::user();
         $address = Address::where('id', $id)->where('user_id', $user->id)->firstOrFail();

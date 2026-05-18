@@ -93,7 +93,7 @@
                                 <p class="text-xs text-gray-400">{{ $order->payment->payment_status }}</p>
                             </div>
                         </div>
-                        <div class="p-4 bg-[#09090b] border border-white/5 rounded-xl space-y-2">
+                        <div class="p-4 bg-[#09090b] border border-white/5 rounded-xl space-y-4">
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-400">Subtotal</span>
                                 <span class="text-white font-medium">Rp
@@ -110,6 +110,29 @@
                                     {{ number_format($order->grand_total, 0, ',', '.') }}</span>
                             </div>
                         </div>
+
+                        <div class="mt-6 p-4 bg-[#09090b] border border-white/5 rounded-xl">
+                            <p class="text-xs uppercase tracking-widest text-gray-500 mb-3 font-bold">Bukti Pembayaran</p>
+                            @if ($order->payment->payment_proof)
+                                <a href="{{ asset('storage/' . $order->payment->payment_proof) }}" target="_blank"
+                                    class="text-sm text-blue-400 hover:underline mb-3 inline-block">Lihat Bukti
+                                    Pembayaran</a>
+                                <div class="overflow-hidden rounded-2xl border border-white/10">
+                                    <img src="{{ asset('storage/' . $order->payment->payment_proof) }}"
+                                        alt="Bukti Pembayaran" class="w-full max-h-52 object-contain">
+                                </div>
+                            @else
+                                <p class="text-sm text-gray-400 italic">Belum ada bukti pembayaran.</p>
+                            @endif
+                        </div>
+
+                        @if (!$order->payment->payment_proof)
+                            <div
+                                class="mt-4 p-4 rounded-2xl bg-yellow-500/10 border border-yellow-500/20 text-sm text-yellow-100">
+                                Bukti pembayaran kosong. Jika tidak valid, ubah status menjadi <strong>cancelled</strong>
+                                untuk mengembalikan stok.
+                            </div>
+                        @endif
                     @else
                         <div class="py-8 text-center border border-dashed border-white/10 rounded-xl">
                             <p class="text-gray-500 text-sm">Data pembayaran belum tersedia.</p>
@@ -194,33 +217,61 @@
                         </p>
                     </div>
                 @else
-                    <!-- Form tetap muncul jika status masih pending, processing, atau shipped -->
-                    <form action="{{ route('admin.orders.update', $order->id) }}" method="POST" class="space-y-6">
+                    <!-- Tombol aksi bertahap untuk update status pesanan -->
+                    @php
+                        $canAdvance = true;
+                        $advanceLabel = 'Lanjutkan ke langkah berikutnya';
+
+                        if ($order->status === 'pending') {
+                            $advanceLabel = 'Konfirmasi Pembayaran & Proses Pesanan';
+                            if (
+                                $order->payment &&
+                                $order->payment->payment_method !== 'COD' &&
+                                !$order->payment->payment_proof
+                            ) {
+                                $canAdvance = false;
+                            }
+                        } elseif ($order->status === 'processing') {
+                            $advanceLabel = 'Tandai Pesanan Dikirim';
+                        } elseif ($order->status === 'shipped') {
+                            $advanceLabel = 'Tandai Pesanan Selesai';
+                        }
+                    @endphp
+
+                    <form action="{{ route('admin.orders.update', $order->id) }}" method="POST" class="space-y-4">
                         @csrf
                         @method('PUT')
+                        <input type="hidden" name="action" value="advance">
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-2">Update Status Pesanan</label>
-                            <select name="status"
-                                class="w-full bg-[#09090b] border border-white/10 rounded-xl px-4 py-3 text-white focus:ring-blue-500 focus:border-blue-500 transition-colors cursor-pointer">
-                                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending
-                                    (Menunggu)</option>
-                                <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>
-                                    Processing (Sedang Diproses)</option>
-                                <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped (Dalam
-                                    Pengiriman)</option>
-                                <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed
-                                    (Selesai)</option>
-                                <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Cancelled
-                                    (Dibatalkan)</option>
-                            </select>
-                        </div>
+                        <p class="text-sm text-gray-400 mb-3">Lanjutkan ke langkah berikutnya:</p>
 
                         <button type="submit"
-                            class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-500 transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)]">
-                            Simpan Perubahan
+                            class="w-full py-3 rounded-xl text-sm font-bold transition-all {{ $canAdvance ? 'bg-blue-600 text-white hover:bg-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.3)]' : 'bg-gray-700 text-gray-300 cursor-not-allowed border border-white/10' }}"
+                            {{ $canAdvance ? '' : 'disabled' }}>
+                            {{ $advanceLabel }}
                         </button>
+
+                        @if (!$canAdvance)
+                            <p class="text-xs text-red-400">Bukti pembayaran belum tersedia. Silakan tunggu bukti transfer
+                                sebelum memproses pesanan.</p>
+                        @endif
                     </form>
+
+                    @if ($order->status === 'pending')
+                        <form action="{{ route('admin.orders.update', $order->id) }}" method="POST"
+                            class="space-y-4 mt-4">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="action" value="cancel">
+                            <button type="submit" onclick="return confirm('Yakin ingin membatalkan pesanan ini?')"
+                                class="w-full py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600 transition-all shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+                                Batalkan Pesanan
+                            </button>
+                        </form>
+                    @endif
+
+                    <p class="text-xs text-gray-500 italic">Status saat ini: <span
+                            class="font-semibold text-white">{{ ucfirst($order->status) }}</span></p>
                 @endif
 
                 <div class="mt-8 pt-6 border-t border-white/5">

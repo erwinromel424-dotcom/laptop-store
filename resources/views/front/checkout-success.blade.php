@@ -1,110 +1,152 @@
 @extends('layouts.app')
-@section('title', 'Pesanan Berhasil | LaptopStore')
+@section('title', 'Order Success | LaptopStore')
 
 @section('content')
-    <div class="relative pt-32 pb-24 bg-[#09090b] min-h-screen w-full overflow-hidden flex items-center justify-center">
+    <div class="relative min-h-screen bg-[#09090b] flex items-center justify-center py-20">
+        <div class="container max-w-2xl mx-auto px-6 relative z-10">
+            <div class="bg-[#121214] border border-white/5 rounded-[2.5rem] p-8 md:p-12 shadow-2xl text-center">
+                @if (session('success'))
+                    <div
+                        class="mb-6 rounded-2xl border border-green-500/20 bg-green-500/10 p-4 text-left text-sm text-green-100">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-        <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vh] bg-green-500/10 blur-[150px] rounded-full pointer-events-none">
-        </div>
-        <div
-            class="absolute bottom-0 right-0 w-[30vw] h-[30vh] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none">
-        </div>
-
-        <div class="w-full px-6 md:px-12 lg:px-24 relative z-10">
-
-            <div class="max-w-4xl mx-auto">
+                <!-- Header Sukses -->
                 <div
-                    class="bg-linear-to-br from-[#121214] to-[#0a0a0c] border border-white/5 rounded-[3rem] p-10 md:p-20 shadow-2xl text-center relative overflow-hidden">
-                    <div
-                        class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.03] mix-blend-overlay pointer-events-none">
+                    class="w-20 h-20 bg-green-500/10 border border-green-500/20 rounded-3xl flex items-center justify-center mb-6 mx-auto">
+                    <svg class="w-10 h-10 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-white mb-2">Sip, Pesanan Masuk!</h1>
+                <p class="text-gray-500 mb-8 font-mono">#{{ $order->order_number }}</p>
+
+                <!-- Box Info -->
+                <div class="grid grid-cols-2 gap-4 mb-8 text-left">
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/5">
+                        <p class="text-[10px] uppercase text-gray-500 mb-1 font-bold">Total Bayar</p>
+                        <p class="text-lg font-bold text-white">Rp {{ number_format($order->grand_total, 0, ',', '.') }}</p>
                     </div>
-
-                    <div class="relative mb-10">
-                        <div
-                            class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto shadow-[0_0_50px_rgba(34,197,94,0.2)]">
-                            <svg class="w-12 h-12 md:w-16 md:h-12 text-green-400" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7">
-                                </path>
-                            </svg>
-                        </div>
-                        <div
-                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-40 md:h-40 border-2 border-green-500/20 rounded-full animate-ping opacity-20">
-                        </div>
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/5">
+                        <p class="text-[10px] uppercase text-gray-500 mb-1 font-bold">Metode</p>
+                        <p class="text-lg font-bold text-white">{{ $order->payment->payment_method }}</p>
                     </div>
+                </div>
 
-                    <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
-                        Pesanan <span
-                            class="text-transparent bg-clip-text bg-linear-to-r from-green-400 to-blue-400">Diterima.</span>
-                    </h1>
-
-                    <p class="text-gray-400 text-lg md:text-xl mb-12 font-light leading-relaxed max-w-2xl mx-auto">
-                        Terima kasih telah mempercayakan kebutuhan teknologi Anda kepada kami. Pesanan Anda sedang kami
-                        validasi dan akan segera masuk ke tahap pemrosesan.
-                    </p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 text-left">
-                        <div class="bg-[#050505] border border-white/5 p-6 rounded-2xl">
-                            <span class="text-xs text-gray-500 uppercase tracking-widest font-bold block mb-2">Nomor
-                                Pesanan</span>
-                            <span class="text-xl font-mono text-blue-400 font-bold">{{ $order->order_number }}</span>
+                <!-- Logika Instruksi -->
+                <div class="bg-black/40 rounded-3xl border border-white/5 p-6 mb-8 text-left">
+                    @if ($order->payment->payment_method == 'COD')
+                        <h4 class="text-white font-bold mb-1">Siapkan Uang Tunai</h4>
+                        <p class="text-sm text-gray-500 italic">Bayar ke kurir pas barang sampai di rumah kamu ya.</p>
+                    @else
+                        <div class="mb-4">
+                            <h4 class="text-white font-bold mb-1 text-lg">Transfer Ke VA</h4>
+                            <p class="text-xs text-gray-500">Salin nomor di bawah & upload bukti fotonya.</p>
                         </div>
-                        <div class="bg-[#050505] border border-white/5 p-6 rounded-2xl">
-                            <span class="text-xs text-gray-500 uppercase tracking-widest font-bold block mb-2">Total
-                                Pembayaran</span>
-                            <span class="text-xl text-white font-extrabold">Rp
-                                {{ number_format($order->grand_total, 0, ',', '.') }}</span>
-                        </div>
-                    </div>
 
-                    <div
-                        class="bg-blue-500/5 border border-blue-500/10 p-8 rounded-3xl mb-12 text-left relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4">
-                            <svg class="w-12 h-12 text-blue-500/10" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-white font-bold mb-4 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            Instruksi Pembayaran
-                        </h3>
-                        <p class="text-sm text-gray-400 mb-6 leading-relaxed">
-                            Silakan lakukan transfer ke nomor Virtual Account berikut menggunakan metode
-                            <b>{{ $order->payment->payment_method }}</b>. Pesanan akan otomatis terkonfirmasi setelah
-                            pembayaran berhasil.
-                        </p>
+                        <!-- VA Box -->
                         <div
-                            class="flex items-center justify-between bg-[#050505] p-5 rounded-2xl border border-white/10 group cursor-pointer hover:border-blue-500/50 transition-colors">
-                            <div>
-                                <span class="text-[10px] text-gray-500 uppercase font-bold tracking-tighter">Nomor Virtual
-                                    Account</span>
-                                <p class="text-2xl font-mono text-white tracking-widest font-bold">8801202619451000</p>
+                            class="flex items-center justify-between bg-white/5 rounded-2xl p-4 mb-6 border border-white/10 group">
+                            <p id="vaNumber" class="text-xl font-mono text-white font-bold tracking-widest leading-none">
+                                8801202619451000</p>
+                            <button type="button" onclick="copyToClipboard()" id="copyBtn"
+                                class="bg-white text-black px-4 py-2 rounded-xl font-bold text-xs active:scale-95 transition-transform">
+                                Salin
+                            </button>
+                        </div>
+
+                        @if ($order->payment->payment_proof)
+                            <div
+                                class="rounded-2xl border border-green-500/20 bg-green-500/10 p-4 mb-6 text-sm text-green-100">
+                                Bukti pembayaran sudah terkirim. Terima kasih, pesanannya segera diverifikasi.
                             </div>
-                            <button
-                                class="text-blue-400 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors">Salin</button>
-                        </div>
-                    </div>
+                        @else
+                            <!-- Form Upload Bukti -->
+                            <form action="{{ route('checkout.uploadProof', $order->id) }}" method="POST"
+                                enctype="multipart/form-data" class="space-y-4">
+                                @csrf
+                                <div
+                                    class="relative border-2 border-dashed border-white/10 rounded-2xl p-4 hover:border-blue-500/50 transition-all">
+                                    <input type="file" name="payment_proof"
+                                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                        onchange="previewImage(this)">
 
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="{{ url('/pesanan') }}"
-                            class="inline-flex justify-center items-center px-10 py-4 font-bold text-[#09090b] bg-white rounded-full hover:bg-gray-200 transition-all duration-300 hover:scale-105">
-                            Pantau Status Pesanan
-                        </a>
-                        <a href="{{ url('/katalog') }}"
-                            class="inline-flex justify-center items-center px-10 py-4 font-bold text-white bg-transparent border border-white/10 rounded-full hover:bg-white/5 transition-all">
-                            Lanjut Belanja
-                        </a>
-                    </div>
+                                    <div id="preview-container" class="hidden mb-2 text-center">
+                                        <img id="image-preview" src="#" class="mx-auto max-h-32 rounded-lg">
+                                    </div>
 
+                                    <div id="upload-placeholder" class="text-center">
+                                        <p class="text-xs text-gray-500">Klik untuk upload foto bukti transfer</p>
+                                    </div>
+                                </div>
+                                <button type="submit"
+                                    class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm transition-all shadow-lg">
+                                    Kirim Bukti Pembayaran
+                                </button>
+                            </form>
+                        @endif
+                    @endif
+                </div>
+
+                <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="{{ route('customer.orders') }}"
+                        class="inline-flex items-center justify-center px-6 py-3 bg-white text-[#09090b] rounded-full font-bold hover:bg-gray-200 transition-all">
+                        Pantau Pesanan
+                    </a>
+                    <a href="{{ url('/katalog') }}"
+                        class="inline-flex items-center justify-center px-6 py-3 text-sm text-gray-500 hover:text-white transition-all underline">
+                        Kembali Belanja
+                    </a>
                 </div>
             </div>
-
         </div>
     </div>
+
+    <script>
+        function copyToClipboard() {
+            // Gunakan trim() untuk hapus spasi tak terlihat
+            const vaText = document.getElementById('vaNumber').innerText.trim();
+            const btn = document.getElementById('copyBtn');
+
+            // Cara cadangan jika navigator.clipboard gagal
+            const textArea = document.createElement("textarea");
+            textArea.value = vaText;
+            document.body.appendChild(textArea);
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                btn.innerText = 'Copied!';
+                btn.classList.replace('bg-white', 'bg-green-500');
+                btn.classList.add('text-white');
+            } catch (err) {
+                console.error('Fallback: Gagal menyalin', err);
+            }
+
+            document.body.removeChild(textArea);
+
+            setTimeout(() => {
+                btn.innerText = 'Salin';
+                btn.classList.replace('bg-green-500', 'bg-white');
+                btn.classList.remove('text-white');
+            }, 2000);
+        }
+
+        // Fungsi Preview Foto
+        function previewImage(input) {
+            const preview = document.getElementById('image-preview');
+            const container = document.getElementById('preview-container');
+            const placeholder = document.getElementById('upload-placeholder');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.src = e.target.result;
+                    container.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 @endsection

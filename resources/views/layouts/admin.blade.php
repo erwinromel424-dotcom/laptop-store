@@ -32,7 +32,7 @@
 
         <!-- Ubah Header menjadi gelap: bg-[#09090b] border-white/5 -->
         <header
-            class="h-20 bg-[#09090b] border-b border-white/5 flex items-center justify-between px-4 sm:px-6 lg:px-8 sticky top-0 z-30">
+            class="h-20 bg-[#09090b] border-b border-white/5 flex items-center justify-between px-4 sm:px-6 lg:px-8 sticky top-0 z-30 backdrop-blur-md">
 
             <div class="flex items-center gap-4">
                 <button @click="isSidebarOpen = true"
@@ -42,23 +42,31 @@
                             d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-                <!-- Teks Header Putih -->
-                <h1 class="text-xl font-bold text-white">
+
+                <h1 class="text-xl font-bold tracking-tight text-white">
                     @yield('header', 'Dashboard')
                 </h1>
             </div>
 
-            <!-- Profil Admin Kanan Atas -->
-            <div class="flex items-center gap-4">
-                <div class="hidden sm:flex flex-col text-right">
-                    <span class="text-sm font-bold text-white">{{ Auth::user()->name ?? 'Administrator' }}</span>
-                    <span class="text-xs text-blue-500 font-medium">Role: Admin</span>
+            <!-- Profil Admin: Sekarang bisa diklik -->
+            <a href="{{ route('profile.edit') }}"
+                class="group flex items-center gap-4 hover:bg-white/5 p-2 rounded-2xl transition-all duration-300">
+                <div class="hidden sm:flex flex-col text-right transition-opacity group-hover:opacity-80">
+                    <span
+                        class="text-sm font-bold text-white leading-none mb-1">{{ Auth::user()->name ?? 'Administrator' }}</span>
+                    <span class="text-[10px] text-blue-500 font-black uppercase tracking-widest">Admin Account</span>
                 </div>
-                <div
-                    class="w-10 h-10 rounded-full bg-linear-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center font-bold shadow-[0_0_15px_rgba(37,99,235,0.5)] cursor-pointer hover:scale-105 transition-transform">
-                    {{ substr(Auth::user()->name ?? 'A', 0, 1) }}
+
+                <div class="relative">
+                    <div
+                        class="w-10 h-10 rounded-full bg-linear-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center font-bold shadow-[0_0_15px_rgba(37,99,235,0.3)] group-hover:shadow-blue-500/50 group-hover:scale-105 transition-all duration-300 border border-white/10">
+                        {{ substr(Auth::user()->name ?? 'A', 0, 1) }}
+                    </div>
+                    <!-- Status Indicator -->
+                    <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-[#09090b] rounded-full">
+                    </div>
                 </div>
-            </div>
+            </a>
         </header>
         <!-- Area Konten Utama Halaman Admin -->
         <main class="flex-1 p-4 sm:p-6 lg:p-8">

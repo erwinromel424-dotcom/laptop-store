@@ -3,7 +3,7 @@
 @section('title', 'Pengaturan Akun | LaptopStore')
 
 @section('content')
-    <div class="relative pt-32 pb-24 bg-[#09090b] min-h-screen w-full overflow-hidden" x-data="{
+    <div class="relative pt-32 pb-24 bg-[#09090b] min-h-screen w-full rounded-4xl overflow-hidden" x-data="{
         addAddressModal: false,
     
         // State untuk Hapus Alamat

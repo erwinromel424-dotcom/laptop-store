@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address; // Pastikan import Model Address
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -14,11 +15,9 @@ use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
-    // Daftar Kurir diselaraskan dengan TransactionSeeder
     private $shippingOptions = [
         'JNE Reguler' => 50000,
         'J&T Express' => 45000,
-        'SiCepat BEST' => 60000,
         'GoSend Instant' => 100000,
     ];
 
@@ -31,21 +30,19 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Keranjang belanjamu kosong.');
         }
 
+        // AMBIL SEMUA ALAMAT: Agar bisa tampil di dropdown view
         /** @var \App\Models\User $user */
-        $address = $user->addresses()->where('is_primary', true)->first();
-        if (!$address) {
-            $address = $user->addresses()->first();
-        }
+        $addresses = $user->addresses()->latest()->get();
 
         $cartItems = $cart->items()->with('product')->get();
         $subtotal = $cartItems->sum(function ($item) {
             return $item->product->price * $item->quantity;
         });
 
-        // Kirim opsi kurir ke view
         $shippingOptions = $this->shippingOptions;
 
-        return view('front.checkout', compact('user', 'address', 'cartItems', 'subtotal', 'shippingOptions'));
+        // Kirim $addresses (jamak) ke view
+        return view('front.checkout', compact('user', 'addresses', 'cartItems', 'subtotal', 'shippingOptions'));
     }
 
     public function process(Request $request)
@@ -57,18 +54,16 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index');
         }
 
-        // Validasi input form agar tidak dimanipulasi inspect element
+        // VALIDASI: Tambahkan address_id karena sekarang dikirim dari select dropdown
         $request->validate([
+            'address_id' => 'required|exists:addresses,id,user_id,' . $user->id,
             'shipping_method' => 'required|string|in:' . implode(',', array_keys($this->shippingOptions)),
             'payment_method' => 'required|string',
             'notes' => 'nullable|string|max:500',
         ]);
 
-        /** @var \App\Models\User $user */
-        $address = $user->addresses()->where('is_primary', true)->first();
-        if (!$address) {
-            return back()->with('error', 'Kamu belum memiliki alamat pengiriman. Silakan tambah di profil.');
-        }
+        // Cari alamat yang dipilih user berdasarkan ID yang dikirim
+        $address = Address::find($request->address_id);
 
         try {
             DB::beginTransaction();
@@ -76,7 +71,6 @@ class CheckoutController extends Controller
             $cartItems = $cart->items()->with('product')->get();
             $subtotal = 0;
 
-            // Validasi Stok Realtime
             foreach ($cartItems as $item) {
                 if ($item->product->stock < $item->quantity) {
                     throw new \Exception("Stok untuk produk {$item->product->name} tidak mencukupi.");
@@ -84,7 +78,6 @@ class CheckoutController extends Controller
                 $subtotal += $item->product->price * $item->quantity;
             }
 
-            // Ambil harga ongkir berdasarkan pilihan yang valid
             $shippingCost = $this->shippingOptions[$request->shipping_method];
             $grandTotal = $subtotal + $shippingCost;
             $orderNumber = 'INV-' . date('Ymd') . '-' . strtoupper(Str::random(6));
@@ -102,7 +95,6 @@ class CheckoutController extends Controller
                 'notes' => $request->notes,
             ]);
 
-            // Buat Record OrderItems & Potong Stok Produk
             foreach ($cartItems as $item) {
                 OrderItem::create([
                     'order_id' => $order->id,
@@ -115,11 +107,11 @@ class CheckoutController extends Controller
                 $item->product->decrement('stock', $item->quantity);
             }
 
-            // Buat Record Pembayaran
+            // Record Pembayaran (Mendukung COD dan VA)
             Payment::create([
                 'order_id' => $order->id,
                 'payment_method' => $request->payment_method,
-                'payment_status' => 'pending',
+                'payment_status' => 'pending', // Keduanya mulai dari pending
                 'amount' => $grandTotal,
             ]);
 
@@ -134,10 +126,59 @@ class CheckoutController extends Controller
         }
     }
 
-    // ... method success tetap sama seperti sebelumnya
     public function success(string $order_number)
     {
-        $order = Order::where('order_number', $order_number)->where('user_id', Auth::id())->firstOrFail();
+        $order = Order::where('order_number', $order_number)
+            ->where('user_id', Auth::id())
+            ->with(['items', 'payment']) // Eager load untuk efisiensi di view success
+            ->firstOrFail();
+
         return view('front.checkout-success', compact('order'));
+    }
+
+    public function uploadProof(Request $request, string $order_id)
+    {
+        $request->validate([
+            'payment_proof' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $order = Order::where('id', $order_id)->where('user_id', Auth::id())->firstOrFail();
+
+        if ($request->hasFile('payment_proof')) {
+            // Simpan file ke folder storage/app/public/payments/proofs
+            $path = $request->file('payment_proof')->store('payments/proofs', 'public');
+
+            // Update kolom payment_proof di tabel payments (relasi dari Order)
+            $order->payment->update([
+                'payment_proof' => $path,
+                'payment_status' => 'pending'
+            ]);
+        }
+
+        return back()->with('success', 'Bukti berhasil diunggah!');
+    }
+
+    public function cancelOrder(string $id)
+    {
+        $order = Order::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+
+        if ($order->canBeCancelled()) {
+            $order->update(['status' => 'cancelled']);
+
+            // Kembalikan stok produk
+            foreach ($order->items as $item) {
+                $item->product?->increment('stock', $item->quantity);
+            }
+
+            if ($order->payment) {
+                // Jika metode transfer, set ke refunded. Jika COD, tetap cancelled.
+                $newStatus = ($order->payment->payment_method !== 'COD') ? 'refunded' : 'failed';
+                $order->payment->update(['payment_status' => $newStatus]);
+            }
+
+            return back()->with('success', 'Pesanan berhasil dibatalkan.');
+        }
+
+        return back()->with('error', 'Waktu pembatalan sudah habis (maksimal 10 menit).');
     }
 }
