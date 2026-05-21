@@ -64,6 +64,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('users', UserController::class);
     // Route CRUD Orders
     Route::resource('orders', OrderController::class)->only(['index', 'show', 'update', 'destroy']);
+    Route::post('orders/{order}/confirm-payment', [OrderController::class, 'confirmPayment'])->name('orders.confirm-payment');
 });
 
 // Authenticated user routes
