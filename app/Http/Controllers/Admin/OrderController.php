@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -118,5 +120,45 @@ class OrderController extends Controller
 
         $order->delete();
         return redirect()->route('admin.orders.index')->with('success', 'Pesanan berhasil dihapus.');
+    }
+
+    public function exportPDF()
+    {
+        // Ambil semua data pesanan beserta relasi user-nya
+        $orders = Order::with('user')->orderBy('created_at', 'desc')->get();
+
+        // Hitung total nilai akumulasi untuk ringkasan di atas halaman laporan
+        $totalSales = $orders->where('status', 'completed')->sum('grand_total');
+        $pendingSales = $orders->where('status', 'pending')->sum('grand_total');
+
+        $countCompleted = $orders->where('status', 'completed')->count();
+        $countPending = $orders->where('status', 'pending')->count();
+        $countProcessing = $orders->where('status', 'processing')->count();
+        $countCancelled = $orders->where('status', 'cancelled')->count();
+
+        // Render template khusus PDF daftar pesanan
+        $pdf = Pdf::loadView('admin.orders.index-pdf', compact(
+            'orders',
+            'totalSales',
+            'pendingSales',
+            'countCompleted',
+            'countPending',
+            'countProcessing',
+            'countCancelled'
+        ))->setPaper('a4', 'portrait'); // Menggunakan ukuran A4 Portrait
+
+        return $pdf->download('Laporan_Daftar_Pesanan_' . Carbon::now()->format('d_M_Y') . '.pdf');
+    }
+
+    public function exportDetailPDF(string $id)
+    {
+        // Eager loading seluruh relasi yang dibutuhkan agar render cepat & hemat query
+        $order = Order::with(['items.product', 'payment', 'user'])->findOrFail($id);
+
+        // Buat PDF dari view khusus invoice admin
+        $pdf = Pdf::loadView('admin.orders.show-pdf', compact('order'))->setPaper('a4', 'portrait');
+
+        // Berikan nama file unik sesuai nomor invoice pesanan
+        return $pdf->download('Invoice_Admin_' . $order->order_number . '.pdf');
     }
 }

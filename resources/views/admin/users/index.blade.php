@@ -39,6 +39,35 @@
 
     <div class="bg-[#121214] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
         <div class="overflow-x-auto">
+            {{-- Alert Notification jika admin baru saja menekan tombol reset --}}
+            @if (session('success'))
+                <div
+                    class="mb-6 p-5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-in">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7">
+                                </path>
+                            </svg>
+                            <span class="text-sm font-bold">Reset Berhasil!</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">{{ session('success') }}</p>
+                    </div>
+
+                    {{-- Tombol otomatis kirim pesan rapi ke WhatsApp Customer --}}
+                    @if (session('customer_phone') && session('new_password'))
+                        <a href="https://wa.me/{{ session('customer_phone') }}?text=Halo%20{{ urlencode(session('customer_name')) }},%20password%20akun%20LaptopStore%20kamu%20telah%20di-reset%20oleh%20Admin.%20%0A%0APassword%20baru%3A%20*{{ session('new_password') }}*%20%0A%0ASilakan%20login%20kembali%20dan%20segera%20ubah%20password%20kamu%20di%20halaman%20profil%20demi%20keamanan."
+                            target="_blank"
+                            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-emerald-900/20 whitespace-nowrap">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.948 0c3.173.001 6.154 1.24 8.396 3.486 2.241 2.247 3.477 5.232 3.475 8.406-.003 6.557-5.338 11.907-11.893 11.907-2.01 0-3.99-.51-5.747-1.483L0 24zm6.27-4.577c1.654.982 3.25 1.488 4.792 1.49 5.342 0 9.71-4.321 9.712-9.614.001-2.565-1-4.977-2.817-6.791-1.817-1.814-4.232-2.813-6.8-2.814-5.347 0-9.714 4.323-9.717 9.617-.001 1.706.463 3.376 1.343 4.849l-.993 3.626 3.71-.963z" />
+                            </svg>
+                            Kirim via WhatsApp
+                        </a>
+                    @endif
+                </div>
+            @endif
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-[#09090b] text-gray-400 text-xs uppercase tracking-widest border-b border-white/5">
@@ -115,6 +144,24 @@
                                         </button>
                                     </form>
                                 @endif
+
+                                {{-- Tombol Pemicu Reset Password --}}
+                                <form action="{{ route('admin.users.reset-password', $user->id) }}" method="POST"
+                                    class="inline">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit"
+                                        onclick="return confirm('Yakin ingin mereset password akun {{ $user->name }} menjadi password123?')"
+                                        class="inline-flex items-center gap-2 px-3 py-2 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 rounded-xl text-xs font-bold transition-all">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z">
+                                            </path>
+                                        </svg>
+                                        Reset Password
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

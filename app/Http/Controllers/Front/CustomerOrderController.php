@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerOrderController extends Controller
@@ -28,5 +29,13 @@ class CustomerOrderController extends Controller
             ->firstOrFail();
 
         return view('front.orders.show', compact('order'));
+    }
+
+    public function downloadInvoice(string $id)
+    {
+        $order = Order::with(['items.product', 'payment', 'user'])->findOrFail($id);
+        $pdf = Pdf::loadView('front.orders.invoice-pdf', compact('order'));
+        
+        return $pdf->download('invoice-' . $order->order_number . '.pdf');
     }
 }

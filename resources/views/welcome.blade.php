@@ -10,7 +10,7 @@
         <div class="absolute inset-0 z-0">
             <!-- Ganti URL di bawah dengan foto laptop flagship (misal: MacBook, ROG, atau XPS) -->
             <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?q=80&w=2032&auto=format&fit=crop"
-                class="w-full h-full object-cover opacity-[0.15] scale-105 transition-transform duration-[10s] animate-subtle-zoom"
+                class="w-full h-full object-cover opacity-[0.30] scale-105 transition-transform duration-[10s] animate-subtle-zoom"
                 alt="Flagship Laptop Background">
 
             <!-- Overlay Linear: Memastikan teks terbaca & menyatu dengan warna brand -->

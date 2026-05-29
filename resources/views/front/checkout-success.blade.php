@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="{{ route('customer.orders') }}"
+                    <a href="{{ route('customer.orders.show', $order->order_number) }}"
                         class="inline-flex items-center justify-center px-6 py-3 bg-white text-[#09090b] rounded-full font-bold hover:bg-gray-200 transition-all">
                         Pantau Pesanan
                     </a>

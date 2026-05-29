@@ -195,8 +195,7 @@
                         <!-- Logic Tombol Cancel / Status Selesai -->
                         <div class="mb-8">
                             @if ($order->status === 'pending' && $order->canBeCancelled())
-                                <div
-                                    class="p-6 bg-orange-500/5 border border-orange-500/10 rounded-4xl text-center mb-8">
+                                <div class="p-6 bg-orange-500/5 border border-orange-500/10 rounded-4xl text-center mb-8">
                                     <p class="text-[10px] text-orange-500 uppercase font-bold tracking-widest mb-2">Batas
                                         Waktu Pembatalan</p>
                                     <div id="cancelTimer"
@@ -212,8 +211,7 @@
                                     </form>
                                 </div>
                             @elseif($order->status === 'completed')
-                                <div
-                                    class="p-6 bg-green-500/10 border border-green-500/20 rounded-4xl text-center mb-8">
+                                <div class="p-6 bg-green-500/10 border border-green-500/20 rounded-4xl text-center mb-8">
                                     <div
                                         class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3 text-green-400">
                                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,6 +282,19 @@
                                         </span>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="mt-6 pt-6 border-t border-white/5">
+                                <a href="{{ route('customer.orders.invoice', $order->id) }}" target="_blank"
+                                    class="w-full py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-bold text-sm transition-all border border-white/10 flex items-center justify-center gap-2 group">
+                                    <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                        </path>
+                                    </svg>
+                                    Cetak Invoice Resmi
+                                </a>
                             </div>
                         </div>
                     </div>

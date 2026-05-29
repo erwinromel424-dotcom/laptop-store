@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 
 class UserController extends Controller
@@ -85,6 +86,37 @@ class UserController extends Controller
         $user->update($data);
 
         return redirect()->route('admin.users.index')->with('success', 'Data pengguna berhasil diperbarui!');
+    }
+
+    public function resetPassword(Request $request, string $id)
+    {
+        // 1. Cari data user berdasarkan ID
+        $user = User::findOrFail($id);
+
+        // 2. Tentukan password baru secara ACAK (misal: 8 karakter kombinasi huruf & angka)
+        // Ini jauh lebih aman daripada 'password123' yang seragam untuk semua orang
+        $defaultPassword = Str::random(8);
+
+        // 3. Update password user di database dengan enkripsi Hash (Aman di DB)
+        $user->update([
+            'password' => Hash::make($defaultPassword)
+        ]);
+
+        // 4. Bersihkan nomor HP agar siap digunakan di link WhatsApp API
+        $hp = $user->phone; // Sesuaikan dengan nama kolom di tabel kamu
+        if (str_starts_with($hp, '0')) {
+            $hp = '62' . substr($hp, 1);
+        }
+        $hp = str_replace([' ', '-', '+'], '', $hp);
+
+        // 5. Kembalikan ke halaman sebelumnya dengan membawa data session sukses
+        // Nilai $defaultPassword yang belum di-hash dikirim ke session agar Admin bisa meneruskannya ke WA Customer
+        return redirect()->back()->with([
+            'success' => "Password untuk {$user->name} berhasil di-reset menjadi: {$defaultPassword}",
+            'new_password' => $defaultPassword,
+            'customer_name' => $user->name,
+            'customer_phone' => $hp
+        ]);
     }
 
     public function destroy(User $user)

@@ -49,12 +49,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/pesanan', [CustomerOrderController::class, 'index'])->name('customer.orders');
     Route::get('/pesanan/{order_number}', [CustomerOrderController::class, 'show'])->name('customer.orders.show');
+    Route::get('/pesanan/{id}/invoice', [CustomerOrderController::class, 'downloadInvoice'])->name('customer.orders.invoice');
     Route::post('/pesanan/{id}/cancel', [CheckoutController::class, 'cancelOrder'])->name('customer.orders.cancel');
 });
 
 // Admin routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/export-pdf', [DashboardController::class, 'exportPDF'])->name('dashboard.pdf');
 
     // Route CRUD Products
     Route::resource('products', ProductController::class);
@@ -62,7 +64,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('categories', CategoryController::class)->except('show');
     // Route CRUD Users
     Route::resource('users', UserController::class);
+    Route::put('/users/{id}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
     // Route CRUD Orders
+    // Route untuk export PDF daftar pesanan
+    Route::get('/orders/export-pdf', [OrderController::class, 'exportPDF'])->name('orders.pdf');
+    Route::get('/orders/{id}/invoice-pdf', [OrderController::class, 'exportDetailPDF'])->name('orders.detail.pdf');
+    // Route resource untuk manajemen pesanan (index, show, update, destroy)
     Route::resource('orders', OrderController::class)->only(['index', 'show', 'update', 'destroy']);
     Route::post('orders/{order}/confirm-payment', [OrderController::class, 'confirmPayment'])->name('orders.confirm-payment');
 });

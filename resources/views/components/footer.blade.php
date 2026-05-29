@@ -39,11 +39,11 @@
                             class="text-gray-500 hover:text-blue-400 text-sm transition-colors flex items-center gap-2 group">
                             <span class="w-0 group-hover:w-2 h-px bg-blue-400 transition-all"></span> Shop
                         </a></li>
-                    <li><a href="#"
+                    <li><a href="{{ url('/tentang-kami') }}"
                             class="text-gray-500 hover:text-blue-400 text-sm transition-colors flex items-center gap-2 group">
                             <span class="w-0 group-hover:w-2 h-px bg-blue-400 transition-all"></span> About
                         </a></li>
-                    <li><a href="#"
+                    <li><a href="{{ url('/kontak') }}"
                             class="text-gray-500 hover:text-blue-400 text-sm transition-colors flex items-center gap-2 group">
                             <span class="w-0 group-hover:w-2 h-px bg-blue-400 transition-all"></span> Contact
                         </a></li>
@@ -54,14 +54,14 @@
             <div>
                 <h4 class="text-white font-bold mb-8 tracking-widest uppercase text-[10px]">Kategori</h4>
                 <ul class="space-y-4">
-                    <li><a href="#" class="text-gray-500 hover:text-blue-400 text-sm transition-colors">Gaming</a>
+                    <li><div class="text-gray-500 hover:text-blue-400 text-sm transition-colors">Gaming</div>
                     </li>
-                    <li><a href="#" class="text-gray-500 hover:text-blue-400 text-sm transition-colors">Bisnis &
-                            Profesional</a></li>
-                    <li><a href="#" class="text-gray-500 hover:text-blue-400 text-sm transition-colors">Premium &
-                            Ultrabook</a></li>
-                    <li><a href="#" class="text-gray-500 hover:text-blue-400 text-sm transition-colors">Pelajar &
-                            Entry Level</a></li>
+                    <li><div class="text-gray-500 hover:text-blue-400 text-sm transition-colors">Bisnis &
+                            Profesional</div></li>
+                    <li><div class="text-gray-500 hover:text-blue-400 text-sm transition-colors">Premium &
+                            Ultrabook</div></li>
+                    <li><div class="text-gray-500 hover:text-blue-400 text-sm transition-colors">Pelajar &
+                            Entry Level</div></li>
                 </ul>
             </div>
 
